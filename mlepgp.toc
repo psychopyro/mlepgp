@@ -1,0 +1,10 @@
+## Interface: 70200
+## Title: EPGP test
+## Notes: Effort Points/Gear Points Loot System
+## Author: PsychoPyro
+## Version: 1.0
+## X-Category: Guild
+## X-Compatible-With: 70000
+## X-Since-Interface: 60000
+
+EPGPCore.lua
