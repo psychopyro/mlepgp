@@ -6,12 +6,15 @@ function events:GUILD_ROSTER_UPDATE(...)
     local numTotal = GetNumGuildMembers()
     for index = 1 , numTotal
         do
-            local fullname = GetGuildRosterInfo(index)
+            local fullname,_,_,level,class = GetGuildRosterInfo(index)
             local ep,gp = getEPGP(index)
-            playerarray[fullname] = {}
-            playerarray[fullname]["ep"] = ep
-            playerarray[fullname]["gp"] = gp
-            print(playerarray[fullname]["ep"])
+            name = stripServer(fullname)
+            playerarray[name] = {}
+            playerarray[name]["ep"] = ep
+            playerarray[name]["gp"] = gp
+            playerarray[name]["level"] = level
+            playerarray[name]["class"] = class
+            playerarray[name]["server"] = server
         end
     end
 
@@ -35,9 +38,15 @@ function getEPGP(index)
     return ep, gp
 end
 
+function stripServer(fullname)
+    local name, server = strsplit("-" , fullname)
+    return name, server
+end
+
 MLEPGP:SetScript("OnEvent", function(self, event, ...)
- events[event](self, ...);
+    events[event](self, ...);
 end);
+
 for k, v in pairs(events) do
- MLEPGP:RegisterEvent(k);
+    MLEPGP:RegisterEvent(k);
 end
